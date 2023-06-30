@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# its own bid by this script to be displayed
+echo $$
