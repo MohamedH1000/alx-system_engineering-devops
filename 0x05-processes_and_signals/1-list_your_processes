@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# a list of currently running processes to be displayed
+ps -aufx
