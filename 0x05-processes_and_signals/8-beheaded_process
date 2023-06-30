@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# killing process signal to be send
+pkill -f -SIGKILL 7-highlander
