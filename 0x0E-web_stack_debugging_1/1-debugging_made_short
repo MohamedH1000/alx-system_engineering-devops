@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# nginx web server to be debugged
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+service nginx restart
+pkill -f "nginx"
