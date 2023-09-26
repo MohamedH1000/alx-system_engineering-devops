@@ -1,41 +1,22 @@
 #!/usr/bin/python3
-
-"""
-in json format a data to be exported by this script
-"""
-
-from requests import get
-from sys import argv
+"""export to csv"""
 import json
+import requests
+from sys import argv
+
 
 if __name__ == "__main__":
-    response = get('https://jsonplaceholder.typicode.com/todos/')
-    data = response.json()
+    user_id = argv[1]
 
-    row = []
-    response2 = get('https://jsonplaceholder.typicode.com/users')
-    data2 = response2.json()
+    url = "https://jsonplaceholder.typicode.com/"
+    uri_user_id = "users/{}".format(user_id)
+    uri_todos = "todos"
 
-    for a in data2:
-        if a['id'] == int(argv[1]):
-            u_name = i['username']
-            id_no = i['id']
+    user_name = requests.get(url + uri_user_id).json().get("username")
+    tasks = requests.get(url + uri_todos, params={"userId": user_id}).json()
 
-    row = []
-
-    for a in data:
-
-        new_dict = {}
-
-        if a['userId'] == int(argv[1]):
-            new_dict['username'] = u_name
-            new_dict['task'] = a['title']
-            new_dict['completed'] = i['completed']
-            row.append(new_dict)
-
-    final_dict = {}
-    final_dict[id_no] = row
-    json_obj = json.dumps(final_dict)
-
-    with open(argv[1] + ".json",  "w") as f:
-        f.write(json_obj)
+    with open("{}.json".format(user_id), "w", newline="") as jsonfile:
+        json.dump({user_id: [{"task": task.get("title"),
+                              "completed": task.get("completed"),
+                              "username": user_name} for task in tasks]},
+                  jsonfile)
