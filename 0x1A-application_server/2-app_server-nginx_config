@@ -2,8 +2,8 @@
 
 server {
     #listen on port 80
-    listen 80 default_server;
-    listen      [::]:80 default_server ipv6only=on;
+    listen 80;
+    listen      [::]:80 ipv6only=on;
 
     #the ip server to be used as domain name
     server_name 54.237.7.47;
